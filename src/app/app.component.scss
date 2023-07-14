@@ -45,7 +45,7 @@
           outline-color: #2C5364;
         }
 
-        &.ng-invalid:not(.ng-pristine) {
+        &.ng-invalid.ng-touched {
           border: 1px solid #f12828;
         }
       }

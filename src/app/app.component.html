@@ -29,6 +29,9 @@
         <input id="birth-date" type="date" formControlName="birthDate" />
         <div class="error-container">
           <span *ngIf="form.controls.birthDate.touched && form.controls.birthDate.errors?.['required']">Merci de compléter ce champ.</span>
+          <span *ngIf="form.controls.birthDate.touched && form.controls.birthDate.errors?.['isUnderAge']">
+            Vous devez être majeur(e) pour acheter des tickets.
+          </span>
         </div>
       </div>
       <div class="row">
