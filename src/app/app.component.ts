@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   AbstractControl,
+  AsyncValidatorFn,
   FormControl,
   FormGroup,
   FormsModule,
@@ -11,6 +12,8 @@ import {
   Validators
 } from "@angular/forms";
 import { isAdultValidator } from "./validators/is-adult.validator";
+import { map, Observable } from "rxjs";
+import { EventGateway } from "./gateways/event.gateway";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +24,8 @@ import { isAdultValidator } from "./validators/is-adult.validator";
 })
 export class AppComponent {
 
+  eventGateway = inject(EventGateway);
+
   form = new FormGroup({
     firstname: new FormControl('', [Validators.required]),
     lastname: new FormControl('', [Validators.required]),
@@ -30,6 +35,7 @@ export class AppComponent {
     childTicketCount: new FormControl<Nullable<number>>(null, [Validators.required, Validators.min(0)]),
   }, {
     validators: [this.hasAdultTicket()],
+    asyncValidators: [this.remainsSeats()],
     updateOn: 'blur'
   });
 
@@ -42,6 +48,16 @@ export class AppComponent {
       const {adultTicketCount, childTicketCount} = group.value;
       const hasChildTicketOnly = !adultTicketCount && childTicketCount;
       return hasChildTicketOnly ? { childTicketOnly: true } : null;
+    }
+  }
+
+  private remainsSeats(): AsyncValidatorFn {
+    return (group: AbstractControl): Observable<Nullable<ValidationErrors>> => {
+      const {adultTicketCount, childTicketCount} = group.value;
+      const totalSeatsCount = (adultTicketCount || 0) + (childTicketCount || 0);
+      return this.eventGateway.retrieveRemainingSeats().pipe(
+        map(({ remainingSeats }) => remainingSeats >= totalSeatsCount ? null : { remainingSeats  })
+      );
     }
   }
 }

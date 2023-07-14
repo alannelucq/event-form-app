@@ -60,6 +60,9 @@
         <span *ngIf="form.errors?.['childTicketOnly']">
           Au moins une personne majeure doit assister à l'événement
         </span>
+        <span *ngIf="form.errors?.['remainingSeats'] as remainingSeats">
+          Il ne reste que {{ remainingSeats }} places pour cet événement.
+        </span>
       </div>
 
       <button type="submit">Je réserve !</button>
