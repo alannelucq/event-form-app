@@ -40,6 +40,8 @@ export class AppComponent {
   });
 
   onSubmit() {
+    this.form.markAllAsTouched();
+    if (!this.form.valid) return;
     console.log('Form has been submitted !');
   }
 
