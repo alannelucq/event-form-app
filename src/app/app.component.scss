@@ -1,0 +1,88 @@
+.main-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+  .event-form-card {
+    width:500px;
+    padding: 32px 64px;
+    border-radius: 15px;
+
+    background: white;
+    box-shadow: -1px 6px 50px -15px rgba(89,89,89,0.55);
+
+    .header {
+      display: flex;
+      font-weight: 600;
+      justify-content: center;
+      margin : 0 0 32px 0;
+      font-size: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+
+      label {
+        display: inline-block;
+        margin-bottom: 5px;
+        font-size: 0.85rem;
+      }
+      input {
+        width: 100%;
+        height: 35px;
+        padding: 8px;
+        border: 1px solid #b9b9b9;
+        border-radius: 5px;
+
+        &:focus {
+          outline-color: #2C5364;
+        }
+      }
+
+      .row {
+        display: flex;
+        gap: 8px;
+
+        & > * {
+          flex: 1;
+        }
+      }
+
+      .ticket-count-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & > * {
+          flex: 1;
+        }
+      }
+    }
+
+    button[type="submit"] {
+      margin-top: 24px;
+      padding: 16px 0;
+      border-radius: 8px;
+      border: none;
+      background: #363636;
+      color: white;
+      font-weight: 500;
+      font-size: 0.95rem;
+      cursor: pointer;
+    }
+
+    .error-container {
+      margin-bottom: 8px;
+      height: 18px;
+      font-size: small;
+      color: #f12828;
+    }
+  }
+}
