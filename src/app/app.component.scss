@@ -71,7 +71,7 @@
     }
 
     button[type="submit"] {
-      margin-top: 24px;
+      margin-top:40px;
       padding: 16px 0;
       border-radius: 8px;
       border: none;
@@ -87,6 +87,10 @@
       height: 18px;
       font-size: small;
       color: #f12828;
+
+      span {
+        display: block;
+      }
     }
   }
 }

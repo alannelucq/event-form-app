@@ -57,6 +57,9 @@
         ">
           Merci de saisir un nombre de tickets valide.
         </span>
+        <span *ngIf="form.errors?.['childTicketOnly']">
+          Au moins une personne majeure doit assister à l'événement
+        </span>
       </div>
 
       <button type="submit">Je réserve !</button>

@@ -1,6 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators
+} from "@angular/forms";
 import { isAdultValidator } from "./validators/is-adult.validator";
 
 @Component({
@@ -19,9 +28,20 @@ export class AppComponent {
     birthDate: new FormControl<Nullable<string>>(null, [Validators.required, isAdultValidator()]),
     adultTicketCount: new FormControl<Nullable<number>>(null, [Validators.required, Validators.min(0)]),
     childTicketCount: new FormControl<Nullable<number>>(null, [Validators.required, Validators.min(0)]),
+  }, {
+    validators: [this.hasAdultTicket()],
+    updateOn: 'blur'
   });
 
   onSubmit() {
     console.log('Form has been submitted !');
+  }
+
+  private hasAdultTicket(): ValidatorFn {
+    return (group: AbstractControl): Nullable<ValidationErrors> => {
+      const {adultTicketCount, childTicketCount} = group.value;
+      const hasChildTicketOnly = !adultTicketCount && childTicketCount;
+      return hasChildTicketOnly ? { childTicketOnly: true } : null;
+    }
   }
 }
