@@ -5,23 +5,32 @@
       <div>
         <label for="lastname">Nom</label>
         <input id="lastname" type="text" formControlName="lastname" />
+        <div class="error-container">
+          <span *ngIf="form.controls.lastname.touched && form.controls.lastname.errors?.['required']">Merci de compléter ce champ.</span>
+        </div>
       </div>
-      <div class="error-container"></div>
       <div>
           <label for="firstname">Prénom</label>
           <input id="firstname" type="text" formControlName="firstname"/>
+        <div class="error-container">
+          <span *ngIf="form.controls.firstname.touched && form.controls.firstname.errors?.['required']">Merci de compléter ce champ.</span>
+        </div>
         </div>
       <div>
-        <div class="error-container"></div>
         <label for="email">Email</label>
         <input id="email" type="email" formControlName="email" />
+        <div class="error-container">
+          <span *ngIf="form.controls.email.touched && form.controls.email.errors?.['required']">Merci de compléter ce champ.</span>
+          <span *ngIf="form.controls.email.touched && form.controls.email.errors?.['email']">Merci de saisir un email valide.</span>
+        </div>
       </div>
-      <div class="error-container"></div>
       <div>
         <label for="birth-date">Date de naissance</label>
         <input id="birth-date" type="date" formControlName="birthDate" />
+        <div class="error-container">
+          <span *ngIf="form.controls.birthDate.touched && form.controls.birthDate.errors?.['required']">Merci de compléter ce champ.</span>
+        </div>
       </div>
-      <div class="error-container"></div>
       <div class="row">
         <div>
           <label for="adult-ticket-count">Nb. tickets adulte</label>
@@ -32,7 +41,20 @@
           <input id="child-ticket-count" type="number" min="0" formControlName="childTicketCount" />
         </div>
       </div>
-      <div class="error-container"></div>
+      <div class="error-container">
+        <span *ngIf="
+          (form.controls.adultTicketCount.touched && form.controls.adultTicketCount.errors?.['required'])
+          || (form.controls.childTicketCount.touched && form.controls.childTicketCount.errors?.['required'])
+        ">
+          Merci de renseigner le nombre de tickets.
+        </span>
+        <span *ngIf="
+          (form.controls.adultTicketCount.touched && form.controls.adultTicketCount.errors?.['min'])
+          || (form.controls.childTicketCount.touched && form.controls.childTicketCount.errors?.['min'])
+        ">
+          Merci de saisir un nombre de tickets valide.
+        </span>
+      </div>
 
       <button type="submit">Je réserve !</button>
     </form>

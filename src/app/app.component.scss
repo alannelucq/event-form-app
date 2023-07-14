@@ -44,6 +44,10 @@
         &:focus {
           outline-color: #2C5364;
         }
+
+        &.ng-invalid:not(.ng-pristine) {
+          border: 1px solid #f12828;
+        }
       }
 
       .row {

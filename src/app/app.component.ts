@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-root',
@@ -12,12 +12,12 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angul
 export class AppComponent {
 
   form = new FormGroup({
-    firstname: new FormControl(''),
-    lastname: new FormControl(''),
-    email: new FormControl(''),
-    birthDate: new FormControl<Nullable<string>>(null),
-    adultTicketCount: new FormControl<Nullable<number>>(1),
-    childTicketCount: new FormControl<Nullable<number>>(2),
+    firstname: new FormControl('', [Validators.required]),
+    lastname: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    birthDate: new FormControl<Nullable<string>>(null, [Validators.required]),
+    adultTicketCount: new FormControl<Nullable<number>>(null, [Validators.required, Validators.min(0)]),
+    childTicketCount: new FormControl<Nullable<number>>(null, [Validators.required, Validators.min(0)]),
   });
 
   onSubmit() {
